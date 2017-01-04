@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const db = require('./init');
 
 const jobSchema = new mongoose.Schema({
-   //user: Schema.Types.ObjectId,  // user who created≈
+   user: String, //Schema.Types.ObjectId,  // user who created≈
    title: { type: String, required: true, trim: true, minlength:5},
    headline: String,
    description: String,
@@ -11,7 +11,7 @@ const jobSchema = new mongoose.Schema({
    keywords: String,
    city: String ,  // reference to cities collection
    sector: String, // reference sector collection
-   jobtype: String, // reference jobtype collection
+   jobtype: {type:String, required: true },// reference jobtype collection
    salary: String, // reference salary collection
    active: Boolean,
    created_at: { type: Date, default: Date.now }

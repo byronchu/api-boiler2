@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
 
     console.log(req.body)
 
-    //newJob.user = req.body.user;
+    newJob.user = req.body.user;
     newJob.title = req.body.title;
     newJob.headline = req.body.headline;
     newJob.description = req.body.description;
@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
 
     console.log(newJob.toJSON())
 
-    // save the user and check for errors
+    // save the jobs and check for errors
     newJob.save()
       .then(newJobResponse => {
         res.json({ message: 'Job created!', newJob: newJobResponse });
@@ -55,16 +55,16 @@ router.post('/', function(req, res) {
 
 // Update: update single
 router.patch('/:id', function(req, res, next) {
-    const { id } = req.params;
-    let { change } = req.body;
-    change = parseInt(change, 10)
-    // Change is 1 or -1
-    Job.findByIdAndUpdate(id, {
-        $inc: { count: change }
-    }, { new: true })
-        .then(counter => {
-            res.json(counter);
-        });
+    // const { id } = req.params;
+    // let { change } = req.body;
+    // change = parseInt(change, 10)
+    // // Change is 1 or -1
+    // Job.findByIdAndUpdate(id, {
+    //     $inc: { count: change }
+    // }, { new: true })
+    //     .then(counter => {
+    //         res.json(counter);
+    //     });
 });
 
 // Delete: delete single
