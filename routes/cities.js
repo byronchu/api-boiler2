@@ -53,12 +53,12 @@ router.patch('/:id', function(req, res, next) {
     // let { change } = req.body;
     console.log('sent changes:',changes);
     console.log('id:',id);
-    City.findByIdAndUpdate(
-      id,
-      { $set: changes},
-       { new: true })
+    City.findByIdAndUpdate(id,{ $set: changes},{ new: true })
         .then((result)=> {
             console.log(result);
+        })
+        .catch(error => {
+          res.send(error);
         });
  });
 

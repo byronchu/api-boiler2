@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const db = require('./init');
 
 const jobSchema = new mongoose.Schema({
-   user: String, //Schema.Types.ObjectId,  // user who created≈
+   user: String, //{ type:mongoose.Schema.Types.ObjectId,  ref:'User' },  // user who created≈
    title: { type: String, required: true, trim: true, minlength:5},
    headline: String,
    description: String,
