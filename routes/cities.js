@@ -46,7 +46,7 @@ router.post('/', function(req, res) {
  });
 
 // Update: update single
-router.patch('/:id', function(req, res, next) {
+router.patch('/:id', function(req, res) {
     var changes  = req.body;
     var { id } = req.params;
     // const { id } = req.params;
@@ -55,7 +55,8 @@ router.patch('/:id', function(req, res, next) {
     console.log('id:',id);
     City.findByIdAndUpdate(id,{ $set: changes},{ new: true })
         .then((result)=> {
-            console.log(result);
+          res.json({message:"updated"})
+            // console.log(result);
         })
         .catch(error => {
           res.send(error);

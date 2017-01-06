@@ -54,18 +54,24 @@ router.post('/', function(req, res) {
  });
 
 // Update: update single
-router.patch('/:id', function(req, res, next) {
-    // const { id } = req.params;
-    // let { change } = req.body;
-    // change = parseInt(change, 10)
-    // // Change is 1 or -1
-    // Job.findByIdAndUpdate(id, {
-    //     $inc: { count: change }
-    // }, { new: true })
-    //     .then(counter => {
-    //         res.json(counter);
-    //     });
-});
+
+  router.patch('/:id', function(req, res) {
+      var changes  = req.body;
+      var { id } = req.params;
+
+      console.log('sent changes:',changes);
+      console.log('id:',id);
+      City.findByIdAndUpdate(id,{ $set: changes},{ new: true })
+          .then((result)=> {
+            res.json({message:"Job updated"})
+              // console.log(result);
+          })
+          .catch(error => {
+            res.send(error);
+          });
+   });
+
+
 
 // Delete: delete single
 router.delete('/:id', function(req, res, next) {
