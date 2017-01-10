@@ -12,6 +12,7 @@ var cors = require('cors');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var jobs  = require('./routes/jobs');
+var jobtypes  = require('./routes/jobtypes');
 var cities = require('./routes/cities');
 var profiles = require('./routes/profiles');
 //var counterRouter = require('./routes/counter');
@@ -37,6 +38,7 @@ app.use(cors({
 app.use('/', index);
 app.use('/users', users);
 app.use('/jobs', jobs);
+app.use('/jobtypes', jobtypes);
 app.use('/cities', cities);
 app.use('/profiles', profiles);
 //app.use('/counter', counterRouter);

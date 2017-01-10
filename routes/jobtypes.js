@@ -1,22 +1,22 @@
 const express = require('express');
-var Profile = require('../models/Profiles');
+var Jobtype = require('../models/Jobtypes');
 
 const router = express.Router();
 
 // Index: read all
 router.get('/', function(req, res, next) {
-    Profile.find()
-        .then(profiles => {
-            res.json(profiles);
+    Jobtype.find()
+        .then(jobtypes => {
+            res.json(jobtypes);
         });
 });
 
 // Show: read specific
 router.get('/:id', function(req, res, next) {
     const { id } = req.params;
-    Profile.findById(id)
-        .then(profile => {
-            res.json(profile);
+    Jobtype.findById(id)
+        .then(user => {
+            res.json(user);
         }).catch( err => {
           res.send(err.message)
         });
@@ -25,31 +25,24 @@ router.get('/:id', function(req, res, next) {
 
 // Create: create single
 router.post('/', function(req, res) {
-    var newProfile = new Profile();
+    var newJobtype = new Jobtype();
 
     console.log(req.body)
 
-    newProfile.firstName = req.body.firstName;
-    newProfile.lastName = req.body.lastName;
-    newProfile.address = req.body.address;
-    newProfile.telephone = req.body.telephone;
-    newProfile.city = req.body.city;
-    newProfile.sector = req.body.sector;
-    newProfile.jobtype = req.body.jobtype;
+    newJobtype.name = req.body.name;
 
-    newProfile.salary = req.body.salary;
-    newProfile.jobAlert = req.body.jobAlert;
 
-    console.log(newProfile.toJSON())
+    console.log(newJobtype.toJSON())
 
     // save the jobs and check for errors
-    newProfile.save()
-      .then(newProfileResponse => {
-        res.json({ message: 'Profile created!', newProfile: newProfileResponse });
+    newJobtype.save()
+      .then(newJobResponse => {
+        res.json({ message: 'Jobtype created!', newJobtype: newJobtypeResponse });
       })
       .catch(error => {
         res.send(error);
       });
+      
  });
 
 // Update: update single
@@ -60,9 +53,9 @@ router.post('/', function(req, res) {
 
       console.log('sent changes:',changes);
       console.log('id:',id);
-      Profile.findByIdAndUpdate(id,{ $set: changes},{ new: true })
+      Job.findByIdAndUpdate(id,{ $set: changes},{ new: true })
           .then((result)=> {
-            res.json({message:"Profile updated"})
+            res.json({message:"Job type updated"})
               // console.log(result);
           })
           .catch(error => {
@@ -75,7 +68,7 @@ router.post('/', function(req, res) {
 // Delete: delete single
 router.delete('/:id', function(req, res, next) {
     const { id } = req.params;
-    Profile.findByIdAndRemove(id)
+    Jobtype.findByIdAndRemove(id)
         .then(job => {
             res.json(job);
         });
