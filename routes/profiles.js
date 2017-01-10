@@ -1,20 +1,20 @@
 const express = require('express');
-var Job = require('../models/Jobs');
+var Profile = require('../models/Profiles');
 
 const router = express.Router();
 
 // Index: read all
 router.get('/', function(req, res, next) {
-    Job.find()
+    Profile.find()
         .then(jobs => {
-            res.json(jobs);
+            res.json(profiles);
         });
 });
 
 // Show: read specific
 router.get('/:id', function(req, res, next) {
     const { id } = req.params;
-    Job.findById(id)
+    Profile.findById(id)
         .then(user => {
             res.json(user);
         }).catch( err => {
@@ -25,28 +25,27 @@ router.get('/:id', function(req, res, next) {
 
 // Create: create single
 router.post('/', function(req, res) {
-    var newJob = new Job();
+    var newProfile = new Profile();
 
     console.log(req.body)
 
-    newJob.user = req.body.user;
-    newJob.title = req.body.title;
-    newJob.headline = req.body.headline;
-    newJob.description = req.body.description;
-    newJob.expiry = req.body.expiry;
-    newJob.keywords = req.body.keywords;
-    newJob.city = req.body.city;
-    newJob.sector = req.body.sector;
-    newJob.jobtype = req.body.jobtype;
-    newJob.salary = req.body.salary;
-    newJob.active = req.body.active;
+    newProfile.firstName = req.body.firstName;
+    newProfile.lastName = req.body.lastName;
+    newProfile.address = req.body.address;
+    newProfile.telephone = req.body.telephone;
+    newProfile.city = req.body.city;
+    newProfile.sector = req.body.sector;
+    newProfile.jobtype = req.body.jobtype;
 
-    console.log(newJob.toJSON())
+    newProfile.salary = req.body.salary;
+    newProfile.jobAlert = req.body.jobAlert;
+
+    console.log(newProfile.toJSON())
 
     // save the jobs and check for errors
-    newJob.save()
-      .then(newJobResponse => {
-        res.json({ message: 'Job created!', newJob: newJobResponse });
+    newProfile.save()
+      .then(newProfileResponse => {
+        res.json({ message: 'Profile created!', newProfile: newProfileResponse });
       })
       .catch(error => {
         res.send(error);
@@ -61,9 +60,9 @@ router.post('/', function(req, res) {
 
       console.log('sent changes:',changes);
       console.log('id:',id);
-      Job.findByIdAndUpdate(id,{ $set: changes},{ new: true })
+      Profile.findByIdAndUpdate(id,{ $set: changes},{ new: true })
           .then((result)=> {
-            res.json({message:"Job updated"})
+            res.json({message:"Profile updated"})
               // console.log(result);
           })
           .catch(error => {
@@ -76,7 +75,7 @@ router.post('/', function(req, res) {
 // Delete: delete single
 router.delete('/:id', function(req, res, next) {
     const { id } = req.params;
-    Job.findByIdAndRemove(id)
+    Profile.findByIdAndRemove(id)
         .then(job => {
             res.json(job);
         });

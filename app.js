@@ -13,6 +13,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var jobs  = require('./routes/jobs');
 var cities = require('./routes/cities');
+var profiles = require('./routes/profiles');
 //var counterRouter = require('./routes/counter');
 //var countersRouter = require('./routes/counters');
 
@@ -37,6 +38,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/jobs', jobs);
 app.use('/cities', cities);
+app.use('/profiles', profiles);
 //app.use('/counter', counterRouter);
 //app.use('/counters', countersRouter);
 
