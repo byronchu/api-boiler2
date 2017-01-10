@@ -7,10 +7,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const session = require('express-session');
 var cors = require('cors');
+const passport = require('passport');
+
+const User = require('./models/User');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+const auth = require('./routes/auth');
+//var users = require('./routes/users');
 var jobs  = require('./routes/jobs');
 var jobtypes  = require('./routes/jobtypes');
 var cities = require('./routes/cities');
@@ -29,14 +34,23 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   origin: '*'
 }));
+// Passport + User
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+// Express + Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/auth', auth);
+//app.use('/users', users);
+
 app.use('/jobs', jobs);
 app.use('/jobtypes', jobtypes);
 app.use('/cities', cities);
