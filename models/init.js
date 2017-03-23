@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;   // fixes mongoose.Promise = global.
+mongoose.Promise = global.Promise;   // fixes mongoose.Promise = global.Promise;
 // Initialization
 //mongoose.connect(process.env.MONGO_URL)
 mongoose.connect('mongodb://localhost:27017/proj3');
